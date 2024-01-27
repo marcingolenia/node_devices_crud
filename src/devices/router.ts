@@ -35,8 +35,7 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
         const brand = ctx.req.param('brand')
         try {
             const device = await deps.readBy(id)
-            const newDevice = device.rebrand(brand)
-            await deps.save(newDevice)
+            await deps.save(device.rebrand(brand))
             return ctx.text("OK", 200)
         } catch (error) {
             if (error instanceof DeviceNotFound) {
@@ -54,8 +53,7 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
         const name = ctx.req.param('name')
         try {
             const device = await deps.readBy(id)
-            const newDevice = device.rename(name)
-            await deps.save(newDevice)
+            await deps.save(device.rename(name))
             return ctx.text("OK", 200)
         } catch (error) {
             if (error instanceof DeviceNotFound) {
