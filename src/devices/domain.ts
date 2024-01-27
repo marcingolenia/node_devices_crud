@@ -34,6 +34,6 @@ export class Device {
     rename = (targetName: string) =>
         new Device(this.id, targetName, this.brand, this.createdAt)
 
-    rebrand = (targeBrand: string) =>
-        new Device(this.id, this.name, targeBrand, this.createdAt)
+    rebrand = (targetBrand: string) =>
+        new Device(this.id, this.name, targetBrand, this.createdAt)
 }
