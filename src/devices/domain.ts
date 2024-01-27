@@ -7,7 +7,14 @@ export class DeviceNotFound extends Error {
 
 export class CannotBeEmpty extends Error {
     constructor(propName: string) {
-        super(` ${propName} Cannot be empty`);
+        super(`${propName} Cannot be empty`);
+        this.name = CannotBeEmpty.name
+    }
+}
+
+export class ConnotBeFutureDate extends Error {
+    constructor(propName: string) {
+        super(`${propName} cannot be in the future`);
         this.name = CannotBeEmpty.name
     }
 }
@@ -18,17 +25,15 @@ export class Device {
         public readonly name: string,
         public readonly brand: string,
         public readonly createdAt: Date,
-    ) { }
-    rename(targetName: string): Device {
-        if (!targetName) {
-            throw new CannotBeEmpty("name")
-        }
-        return { ...this, name: targetName };
+    ) {
+        if (!name || name.trim() === "") throw new CannotBeEmpty("name")
+        if (!brand || name.trim() === "") throw new CannotBeEmpty("brand")
+        if (createdAt.getTime() > new Date().getTime()) throw new ConnotBeFutureDate("createdAt")
     }
-    rebrand(targetBrand: string): Device {
-        if (!targetBrand) {
-            throw new CannotBeEmpty("brand")
-        }
-        return { ...this, brand: targetBrand };
-    }
+
+    rename = (targetName: string) =>
+        new Device(this.id, targetName, this.brand, this.createdAt)
+
+    rebrand = (targeBrand: string) =>
+        new Device(this.id, this.name, targeBrand, this.createdAt)
 }

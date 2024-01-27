@@ -12,12 +12,11 @@ export const ReadBy = async (id: string): Promise<Device> => {
 }
 
 export const List = async (): Promise<Device[]> =>
-    Promise.resolve([...inMemoryDb.values()])
+    [...inMemoryDb.values()]
 
 export const SearchBy = async (brandName: string): Promise<Device[]> =>
-    Promise.resolve(
         [...inMemoryDb.values()]
-            .filter(device => device.brand.includes(brandName)))
+        .filter(device => device.brand.includes(brandName))
 
 export const Delete = async (id: string): Promise<void> => {
     inMemoryDb.delete(id)
