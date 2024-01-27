@@ -1,7 +1,13 @@
 name: ci
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
-  my-job:
-    name: ci-job
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
