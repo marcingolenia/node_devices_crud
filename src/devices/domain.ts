@@ -8,7 +8,7 @@ export class DeviceNotFound extends Error {
 export class CannotBeEmpty extends Error {
     constructor(propName: string) {
         super(` ${propName} Cannot be empty`);
-        this.name = DeviceNotFound.name
+        this.name = CannotBeEmpty.name
     }
 }
 
