@@ -1,6 +1,7 @@
 import { test, expect } from 'bun:test'
 import api from '../../index'
 import { DeviceDto } from '../dtos'
+import { routeDevices, DevicesDeps } from '../router'
 import { faker } from '@faker-js/faker'
 import { randomUUID } from 'crypto'
 
@@ -11,6 +12,18 @@ const someDevice = (overrides?: Partial<DeviceDto>): DeviceDto => ({
     createdAt: overrides?.createdAt ?? faker.date
         .between({ from: '2020-01-01T00:00:00.000Z', to: '2024-01-01T00:00:00.000Z' })
         .toISOString()
+})
+
+test('/devices [OPTIONS] returns possible actions', async () => {
+    // Arrange
+    const expectedRoutes = routeDevices({} as DevicesDeps)
+        .routes.map(r => ({ method: r.method, path: r.path }));
+    // Act
+    const resp = await api.request(`/devices`, {
+        method: 'OPTIONS',
+    })
+    // Assert
+    expect(await resp.json()).toStrictEqual(expectedRoutes)
 })
 
 test('/devices [PUT] creates a device which can be retrieved from location header', async () => {

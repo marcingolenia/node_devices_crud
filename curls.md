@@ -1,5 +1,8 @@
 # CURLS:
 
+## See what's possible with API
+curl --request OPTIONS --url http://localhost:3000/devices --header 'Content-Type: application/json'
+
 ## Add device
 curl --request PUT \
   --url http://localhost:3000/devices \

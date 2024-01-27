@@ -30,6 +30,10 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
         return ctx.json('Internal Server Error', 500);
     })
 
+    devicesApi.options('/', async ctx => {
+        return ctx.json(devicesApi.routes)
+    })
+
     devicesApi.put('/:id/brand/:brand', async ctx => {
         const id = ctx.req.param('id')
         const brand = ctx.req.param('brand')
