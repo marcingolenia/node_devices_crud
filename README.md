@@ -1,3 +1,4 @@
+[![ci](https://github.com/marcingolenia/node_devices_crud/actions/workflows/bun.yml/badge.svg)](https://github.com/marcingolenia/node_devices_crud/actions/workflows/bun.yml)
 # Prerequisites 
 Bun is required (alternative js runtime). Run this to install: `curl -fsSL https://bun.sh/install | bash`
 
