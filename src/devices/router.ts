@@ -28,10 +28,7 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
             await deps.save(device.rebrand(brand))
             return ctx.status(200)
         } catch (error) {
-            if (error instanceof DeviceNotFound) {
-                return ctx.text(error.message, 404)
-            }
-            if (error instanceof CannotBeEmpty) {
+            if (error instanceof DeviceNotFound || error instanceof CannotBeEmpty) {
                 return ctx.text(error.message, 404)
             }
         }
@@ -46,10 +43,7 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
             await deps.save(device.rename(name))
             return ctx.status(200)
         } catch (error) {
-            if (error instanceof DeviceNotFound) {
-                return ctx.text(error.message, 404)
-            }
-            if (error instanceof CannotBeEmpty) {
+            if (error instanceof DeviceNotFound || error instanceof CannotBeEmpty) {
                 return ctx.text(error.message, 404)
             }
         }
