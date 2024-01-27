@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  },
+  "dependencies": {
+    "hono": "^3.12.7"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.0",
+    "@types/bun": "^1.0.0"
+  }
+}
