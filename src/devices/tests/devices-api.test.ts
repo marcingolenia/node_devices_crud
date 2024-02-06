@@ -88,7 +88,7 @@ test('/devices/:id [GET] return 404 when device does not exists', async () => {
     expect(resp.status).toBe(404)
 })
 
-test('/devices/search?brand={brand} returns devices of brand that includes the keyword', async () => {
+test('/devices?brand={brand} returns devices of brand that includes the keyword', async () => {
     // Arrange
     const brand = faker.company.name()
     const devices: DeviceDto[] = [...Array(5).keys()].map(_ => someDevice({ brand }))
@@ -99,7 +99,7 @@ test('/devices/search?brand={brand} returns devices of brand that includes the k
         )
     )
     // Assert
-    const resp = await api.request(`/devices/search?brand=${devices[0].brand}`, { method: 'GET' })
+    const resp = await api.request(`/devices?brand=${devices[0].brand}`, { method: 'GET' })
     expect(resp.status).toBe(200)
     expect(await resp.json()).toStrictEqual(devices)
 })
@@ -116,7 +116,7 @@ test('/devices [DELETE] deletes a device', async () => {
         method: 'DELETE',
     })
     // Assert
-    expect(deleteResponse.status).toBe(200)
+    expect(deleteResponse.status).toBe(204)
     const resp = await api.request(`/devices`, { method: 'GET' })
     expect(await resp.json()).not.toContainEqual(deviceDto)
 })

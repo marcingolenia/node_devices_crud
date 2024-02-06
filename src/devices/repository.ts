@@ -11,9 +11,6 @@ export const ReadBy = async (id: string): Promise<Device> => {
     return device ? device : Promise.reject(new DeviceNotFound(id))
 }
 
-export const List = async (): Promise<Device[]> =>
-    [...inMemoryDb.values()]
-
 export const SearchBy = async (brandName: string): Promise<Device[]> =>
         [...inMemoryDb.values()]
         .filter(device => device.brand.includes(brandName))

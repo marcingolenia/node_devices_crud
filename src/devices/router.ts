@@ -6,7 +6,6 @@ export type DevicesDeps = {
     readBy: (id: string) => Promise<Device>
     searchBy: (brandName: string) => Promise<Device[]>
     save: (device: Device) => Promise<void>
-    list: () => Promise<Device[]>
     delete: (id: string) => Promise<void>
 }
 
@@ -70,12 +69,6 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
         return ctx.json('Internal Server Error', 500);
     })
 
-    devicesApi.get('/search', async (ctx) => {
-        const brandName = ctx.req.query('brand') ?? ''
-        const filteredDevices = await deps.searchBy(brandName)
-        return ctx.json((filteredDevices.map(fromDomain)), 200)
-    })
-
     devicesApi.get('/:id', async (ctx) => {
         const id = ctx.req.param('id')
         try {
@@ -92,9 +85,14 @@ export const routeDevices = (deps: DevicesDeps): Hono => {
     devicesApi.delete('/:id', async (ctx) => {
         const id = ctx.req.param('id')
         await deps.delete(id)
-        return ctx.text("OK", 200)
+        return ctx.body(null, 204)
     })
 
-    devicesApi.get('/', async (ctx) => ctx.json(await deps.list(), 200))
+    devicesApi.get('/', async (ctx) => {
+        const brandName = ctx.req.query('brand') ?? ''
+        const filteredDevices = await deps.searchBy(brandName)
+        return ctx.json((filteredDevices.map(fromDomain)), 200)
+    })
+
     return devicesApi
 }
